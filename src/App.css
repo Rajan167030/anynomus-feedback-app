@@ -1,42 +1,288 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+:root {
+  --purple-dark: #2D1B69;
+  --purple-main: #4B2CA0;
+  --purple-light: #6B3FCF;
+  --purple-lighter: #9D89BC;
+  --accent: #FF6B6B;
+}
+
+body {
+  background: linear-gradient(135deg, var(--purple-dark) 0%, #1a1a2e 100%);
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  color: #fff;
+  overflow-y: auto;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+  color: #fff;
+  margin-bottom: 1.5rem;
   text-align: center;
+  font-size: 2.5rem;
+  text-shadow: 0 0 10px rgba(107, 63, 207, 0.5);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.form-description {
+  text-align: center;
+  color: var(--purple-lighter);
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+.form-group {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: transform 0.3s;
+}
+
+.form-group:focus-within label {
+  transform: translateY(-5px);
+  color: var(--purple-light);
+}
+
+select,
+textarea,
+input[type="email"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239D89BC' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+select option {
+  background: var(--purple-dark);
+  color: #fff;
+}
+
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--purple-light);
+  box-shadow: 0 0 0 4px rgba(107, 63, 207, 0.1);
+}
+
+.rating-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.rating-label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.rating-label:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.rating-label input {
+  display: none;
+}
+
+.rating-label input:checked + span {
+  color: var(--accent);
+  transform: scale(1.2);
+}
+
+.rating-label span {
+  font-size: 1.2rem;
+  transition: all 0.3s;
+}
+
+button {
+  width: 100%;
+  padding: 1.2rem;
+  background: var(--purple-light);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover:not(:disabled) {
+  background: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
+button:disabled {
+  background: var(--purple-lighter);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+button.loading {
+  background: var(--purple-lighter);
+}
+
+button.loading::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin: -10px 0 0 -10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.error-message {
+  color: var(--accent);
+  margin-top: 1rem;
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 107, 107, 0.1);
+  border-radius: 8px;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.submitted-message {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 2rem;
+  background: rgba(107, 63, 207, 0.1);
+  border-radius: 12px;
+  animation: success 0.5s ease-out;
+}
+
+@keyframes success {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--purple-light);
+  color: white;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInButton 0.3s ease forwards;
+  z-index: 1000;
+}
+
+@keyframes fadeInButton {
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.scroll-to-top:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
 }
 
-.card {
-  padding: 2em;
+.scroll-to-top:active {
+  transform: translateY(0);
 }
 
-.read-the-docs {
-  color: #888;
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--purple-light);
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+.submitted-message h2 {
+  color: #fff;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.submitted-message p {
+  color: var(--purple-lighter);
+  font-size: 1.1rem;
 }
